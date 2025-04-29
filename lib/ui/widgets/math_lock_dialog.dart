@@ -1,49 +1,120 @@
+import 'package:daily_chore_chart_kids/utils/math_lock_helper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../utils/math_lock_helper.dart';
 
 Future<bool> showMathLockDialog(BuildContext context) async {
-  final q = MathLockHelper.generateQuestion();
   final controller = TextEditingController();
+  final question = MathLockHelper.generateQuestion();
 
-  final result = await showDialog<bool>(
-    context: context,
-    barrierDismissible: false,
-    builder: (_) {
-      return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text("Parent Access Only"),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text("Solve to continue: ${q.label}"),
-            const SizedBox(height: 12),
-            TextField(
-              controller: controller,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                hintText: "Answer",
-                border: OutlineInputBorder(),
+  if (kDebugMode) return Future.value(true);
+
+  return await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            backgroundColor: Colors.orange[50],
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.lock_rounded,
+                    size: 60,
+                    color: Colors.deepPurple,
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    "Parent Check",
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    question.label,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: controller,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "Enter your answer",
+                      hintStyle: const TextStyle(fontSize: 18),
+                      prefixIcon: const Icon(Icons.star, color: Colors.orange),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(
+                          color: Colors.deepPurple.shade100,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(
+                          color: Colors.deepPurple,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text(
+                          "Cancel",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          final input = int.tryParse(controller.text.trim());
+                          final correct = input == question.answer;
+                          Navigator.pop(context, correct);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                          backgroundColor: Colors.deepPurple,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: const Text(
+                          "Submit",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text("Cancel"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final answer = int.tryParse(controller.text.trim());
-              final isCorrect = answer == q.answer;
-              Navigator.of(context).pop(isCorrect);
-            },
-            child: const Text("Submit"),
-          ),
-        ],
-      );
-    },
-  );
-
-  return result ?? false;
+          );
+        },
+      ) ??
+      false;
 }

@@ -74,8 +74,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () async {
-              final unlocked =
-                  kDebugMode ? true : await showMathLockDialog(context);
+              final unlocked = await showMathLockDialog(context);
 
               if (unlocked && context.mounted) {
                 Navigator.pushNamed(context, '/settings');

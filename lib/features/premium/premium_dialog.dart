@@ -35,8 +35,7 @@ class PremiumDialog extends StatelessWidget {
           icon: const Icon(Icons.lock_open),
           label: const Text("Upgrade Now"),
           onPressed: () async {
-            final unlocked =
-                kDebugMode ? true : await showMathLockDialog(context);
+            final unlocked = await showMathLockDialog(context);
             if (!unlocked || !context.mounted) return;
 
             Navigator.pop(context);
