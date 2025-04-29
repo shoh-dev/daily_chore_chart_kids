@@ -1,3 +1,4 @@
+import 'package:daily_chore_chart_kids/core/services/notification_service.dart';
 import 'package:daily_chore_chart_kids/features/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,6 +55,9 @@ void main() async {
         '${today.day.toString().padLeft(2, '0')}';
     await appStateBox.put('lastResetDate', isoDate);
   }
+
+  await NotificationService.initialize();
+  await NotificationService.scheduleDailyReminder();
 
   runApp(
     ProviderScope(child: ChoreChartApp(hasSeenOnboarding: hasSeenOnboarding)),

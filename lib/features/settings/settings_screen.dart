@@ -1,4 +1,5 @@
 import 'package:daily_chore_chart_kids/core/models/sticker.dart';
+import 'package:daily_chore_chart_kids/core/services/iap_service.dart';
 import 'package:daily_chore_chart_kids/features/home/home_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -113,8 +114,34 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.restore),
             title: const Text('Restore Purchase'),
-            onTap: () {
-              // TODO: Integrate restorePurchase() here
+            onTap: () async {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Checking for previous purchases..."),
+                ),
+              );
+
+              await IAPService.restorePurchases(
+                onSuccess: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("✅ Premium restored!")),
+                  );
+                },
+                onNothingRestored: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("No previous purchase found."),
+                    ),
+                  );
+                },
+                onFailure: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Failed to restore purchase."),
+                    ),
+                  );
+                },
+              );
             },
           ),
 

@@ -1,3 +1,6 @@
+import 'package:daily_chore_chart_kids/core/services/iap_service.dart';
+import 'package:daily_chore_chart_kids/ui/widgets/math_lock_dialog.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PremiumDialog extends StatelessWidget {
@@ -31,9 +34,26 @@ class PremiumDialog extends StatelessWidget {
         ElevatedButton.icon(
           icon: const Icon(Icons.lock_open),
           label: const Text("Upgrade Now"),
-          onPressed: () {
-            // TODO: Hook into IAP flow
+          onPressed: () async {
+            final unlocked =
+                kDebugMode ? true : await showMathLockDialog(context);
+            if (!unlocked || !context.mounted) return;
+
             Navigator.pop(context);
+
+            // Start purchase
+            await IAPService.purchasePremium(
+              onSuccess: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("✅ Premium Unlocked!")),
+                );
+              },
+              onFailure: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Purchase failed.")),
+                );
+              },
+            );
           },
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:daily_chore_chart_kids/core/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
@@ -86,11 +87,19 @@ class _RewardScreenState extends State<RewardScreen> {
       earned: true,
     );
 
+    await _completeRewardFlow(newSticker);
+  }
+
+  Future<void> _completeRewardFlow(Sticker newSticker) async {
+    final box = Hive.box<Sticker>(HiveBoxKeys.stickers);
     await box.put(newSticker.id, newSticker);
 
     setState(() {
       earnedSticker = newSticker;
     });
+
+    // Schedule tomorrow’s reminder
+    await NotificationService.scheduleDailyReminder();
   }
 
   @override

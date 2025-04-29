@@ -1,5 +1,6 @@
 // lib/features/home/home_screen.dart
 
+import 'package:daily_chore_chart_kids/core/services/notification_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,6 +43,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (allDone && !hasShownReward && lastRewardDate != todayKey) {
         hasShownReward = true;
         await appStateBox.put(HiveBoxKeys.rewardShownDate, todayKey);
+
+        // Cancel notification
+        await NotificationService.cancelAll();
+
         if (!context.mounted) return;
         Navigator.push(
           context,
