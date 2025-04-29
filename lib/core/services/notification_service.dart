@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter/material.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -19,6 +20,14 @@ class NotificationService {
     final settings = InitializationSettings(android: androidInit, iOS: iosInit);
 
     await _notifications.initialize(settings);
+
+    if (Platform.isAndroid) {
+      await _notifications
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >()
+          ?.requestNotificationsPermission();
+    }
   }
 
   static Future<void> scheduleDailyReminder() async {

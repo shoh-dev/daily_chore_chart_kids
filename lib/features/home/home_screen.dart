@@ -115,8 +115,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.check_circle_outline,
+                            Icon(
+                              chore.isCompleted
+                                  ? Icons.check_circle_outline
+                                  : Icons.circle_outlined,
                               color: Colors.white,
                             ),
                             const SizedBox(width: 12),

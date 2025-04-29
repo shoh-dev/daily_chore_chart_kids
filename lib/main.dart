@@ -1,6 +1,7 @@
 import 'package:daily_chore_chart_kids/core/services/notification_service.dart';
 import 'package:daily_chore_chart_kids/features/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -14,6 +15,9 @@ import 'utils/hive_keys.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 🔒 Lock to portrait-up only
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // Initialize Hive
   await Hive.initFlutter();
