@@ -12,7 +12,7 @@ class AppThemes {
       onSecondary: Colors.white,
       onSurface: Colors.black87,
     ),
-    scaffoldBackgroundColor: Colors.grey.shade100,
+    scaffoldBackgroundColor: Colors.yellow[50],
     textTheme: TextTheme(
       headlineLarge: const TextStyle(
         fontFamily: 'ComicNeue',

@@ -169,6 +169,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   }
                 },
               ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.star),
+                label: const Text("Enable Premium (Dev Only)"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.yellow,
+                  foregroundColor: Colors.black,
+                ),
+                onPressed: () async {
+                  try {
+                    await Hive.box(
+                      HiveBoxKeys.appState,
+                    ).put(HiveBoxKeys.hasPremium, true);
+                  } catch (e) {
+                    debugPrint('Error enabling premium data: $e');
+                  }
+                },
+              ),
             ],
           ],
         ),

@@ -18,6 +18,7 @@ void main() async {
 
   // 🔒 Lock to portrait-up only
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
   // Initialize Hive
   await Hive.initFlutter();
@@ -32,6 +33,7 @@ void main() async {
   final choresBox = await Hive.openBox<Chore>(HiveBoxKeys.chores);
   await Hive.openBox<Sticker>(HiveBoxKeys.stickers);
   final appStateBox = await Hive.openBox(HiveBoxKeys.appState);
+
   final bool hasSeenOnboarding = await appStateBox.get(
     HiveBoxKeys.hasSeenOnboarding,
     defaultValue: false,

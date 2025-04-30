@@ -1,5 +1,6 @@
 import 'package:daily_chore_chart_kids/core/services/notification_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -47,6 +48,7 @@ class _RewardScreenState extends State<RewardScreen> {
     _confetti = ConfettiController(duration: const Duration(seconds: 3));
     _unlockSticker();
     _confetti.play();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 
   @override
@@ -105,7 +107,6 @@ class _RewardScreenState extends State<RewardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[50],
       body: Stack(
         children: [
           if (earnedSticker != null)
