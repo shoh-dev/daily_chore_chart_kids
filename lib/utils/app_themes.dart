@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppThemes {
   static ThemeData get lightTheme => ThemeData(
+    fontFamily: 'ComicNeue',
     brightness: Brightness.light,
     colorScheme: ColorScheme.light(
       primary: Colors.indigo.shade400,
@@ -14,35 +14,72 @@ class AppThemes {
     ),
     scaffoldBackgroundColor: Colors.grey.shade100,
     textTheme: TextTheme(
-      headlineLarge: GoogleFonts.fredoka(
+      headlineLarge: const TextStyle(
+        fontFamily: 'ComicNeue',
         fontSize: 32,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         color: Colors.deepPurple,
+        letterSpacing: -0.5,
       ),
-      headlineMedium: GoogleFonts.fredoka(
+      headlineMedium: const TextStyle(
+        fontFamily: 'ComicNeue',
         fontSize: 28,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         color: Colors.deepPurple,
+        letterSpacing: -0.5,
       ),
-      headlineSmall: GoogleFonts.fredoka(
+      headlineSmall: const TextStyle(
+        fontFamily: 'ComicNeue',
         fontSize: 24,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
+        color: Colors.black87,
+        letterSpacing: -0.5,
       ),
-      bodyLarge: GoogleFonts.comicNeue(fontSize: 16, color: Colors.black87),
-      bodyMedium: GoogleFonts.comicNeue(fontSize: 14, color: Colors.black54),
-      bodySmall: GoogleFonts.comicNeue(
+      bodyLarge: const TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: Colors.black87,
+        letterSpacing: -0.3,
+      ),
+      bodyMedium: const TextStyle(
+        fontFamily: 'ComicNeue',
         fontSize: 16,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
+        color: Colors.black87,
+        letterSpacing: -0.3,
+      ),
+      bodySmall: const TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: 16,
+        fontWeight: FontWeight.w800,
         color: Colors.white,
+        letterSpacing: -0.3,
+      ),
+      labelLarge: const TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+        color: Colors.black87,
+        letterSpacing: -0.3,
+      ),
+      labelMedium: const TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+        color: Colors.black87,
+        letterSpacing: -0.3,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.orange.shade300,
         foregroundColor: Colors.white,
-        textStyle: GoogleFonts.comicNeue(
+        textStyle: const TextStyle(
+          fontFamily: 'ComicNeue',
           fontSize: 18,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w800,
+          letterSpacing: -0.3,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -55,7 +92,13 @@ class AppThemes {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
       ),
-      titleTextStyle: GoogleFonts.fredoka(fontSize: 20, color: Colors.white),
+      titleTextStyle: const TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: 20,
+        fontWeight: FontWeight.w800,
+        color: Colors.white,
+        letterSpacing: -0.3,
+      ),
       iconTheme: const IconThemeData(color: Colors.white, size: 28),
       centerTitle: true,
     ),

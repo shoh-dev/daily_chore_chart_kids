@@ -60,11 +60,14 @@ class StickerCollectionScreen extends StatelessWidget {
           // Locked (premium-only)
           if (!isUnlocked) {
             display = Stack(
+              alignment: Alignment.center,
               children: [
-                display,
-                Container(color: Colors.white.withOpacity(0.6)),
-                const Center(
-                  child: Icon(Icons.lock, size: 32, color: Colors.red),
+                Opacity(opacity: .4, child: display),
+                const Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Icon(Icons.lock, size: 32, color: Colors.red),
+                  ),
                 ),
               ],
             );

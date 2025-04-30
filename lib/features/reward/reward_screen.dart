@@ -56,7 +56,7 @@ class _RewardScreenState extends State<RewardScreen> {
   }
 
   void _unlockSticker() async {
-    final box = Hive.box<Sticker>(HiveBoxKeys.stickers);
+    Hive.box<Sticker>(HiveBoxKeys.stickers);
     final isPremium =
         Hive.box(HiveBoxKeys.appState).get(HiveBoxKeys.hasPremium) == true;
 

@@ -1,6 +1,5 @@
 import 'package:daily_chore_chart_kids/core/services/iap_service.dart';
 import 'package:daily_chore_chart_kids/ui/widgets/math_lock_dialog.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PremiumDialog extends StatelessWidget {

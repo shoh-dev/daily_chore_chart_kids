@@ -173,6 +173,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed:
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const StickerCollectionScreen(),
+              ),
+            ),
+        icon: const Icon(Icons.card_giftcard),
+        label: const Text('My Stickers'),
+        backgroundColor: Colors.orange.shade300,
+      ),
     );
   }
 }
