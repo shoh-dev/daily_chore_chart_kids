@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:daily_chore_chart_kids/core/providers/premium_provider.dart';
 import 'package:daily_chore_chart_kids/utils/hive_keys.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:hive/hive.dart';
 
@@ -24,6 +26,7 @@ class IAPService {
     required VoidCallback onSuccess,
     required VoidCallback onNothingRestored,
     required VoidCallback onFailure,
+    required WidgetRef ref,
   }) async {
     final isAvailable = await _iap.isAvailable();
     if (!isAvailable) {
@@ -40,7 +43,7 @@ class IAPService {
         for (final purchase in purchases) {
           if (purchase.status == PurchaseStatus.restored &&
               purchase.productID == premiumId) {
-            await _setPremiumActive();
+            await _setPremiumActive(ref);
             restored.complete(true);
             break;
           }
@@ -68,13 +71,15 @@ class IAPService {
     }
   }
 
-  static Future<void> _setPremiumActive() async {
+  static Future<void> _setPremiumActive(WidgetRef ref) async {
     await Hive.box(HiveBoxKeys.appState).put(HiveBoxKeys.hasPremium, true);
+    ref.read(premiumProvider.notifier).state = true;
   }
 
   static Future<void> purchasePremium({
     required VoidCallback onSuccess,
     required VoidCallback onFailure,
+    required WidgetRef ref,
   }) async {
     final available = await _iap.isAvailable();
     if (!available) {
@@ -100,7 +105,7 @@ class IAPService {
       for (final purchase in purchases) {
         if (purchase.productID == premiumId &&
             purchase.status == PurchaseStatus.purchased) {
-          await _setPremiumActive();
+          await _setPremiumActive(ref);
           onSuccess();
           break;
         } else if (purchase.status == PurchaseStatus.error) {

@@ -1,4 +1,4 @@
-package com.example.daily_chore_chart_kids
+package dev.shoh.chorechart
 
 import io.flutter.embedding.android.FlutterActivity
 

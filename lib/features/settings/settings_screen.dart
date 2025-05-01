@@ -1,4 +1,5 @@
 import 'package:daily_chore_chart_kids/core/models/sticker.dart';
+import 'package:daily_chore_chart_kids/core/providers/premium_provider.dart';
 import 'package:daily_chore_chart_kids/core/services/iap_service.dart';
 import 'package:daily_chore_chart_kids/features/home/home_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -23,8 +24,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chores = ref.watch(settingsChoreListProvider);
-    final isPremium =
-        Hive.box(HiveBoxKeys.appState).get(HiveBoxKeys.hasPremium) == true;
+    final isPremium = ref.watch(premiumProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Parent Settings')),
@@ -93,7 +93,7 @@ class SettingsScreen extends ConsumerWidget {
 
           const Divider(height: 32),
 
-          // Unlock Premium & Restore (unchanged)...
+          // Unlock Premium & Restore
           ListTile(
             leading: const Icon(Icons.star, color: Colors.amber),
             title: const Text('Unlock Premium'),
@@ -141,6 +141,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                   );
                 },
+                ref: ref,
               );
             },
           ),

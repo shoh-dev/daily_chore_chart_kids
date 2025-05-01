@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import 'package:hive/hive.dart';
 
 import '../../core/models/chore.dart';
+import '../../core/providers/premium_provider.dart';
 import '../../utils/hive_keys.dart';
 import '../premium/premium_dialog.dart';
 import 'settings_screen.dart'; // For settingsChoreListProvider
@@ -43,8 +44,7 @@ class _AddEditChoreScreenState extends ConsumerState<AddEditChoreScreen> {
     if (title.isEmpty) return;
 
     final choresBox = Hive.box<Chore>(HiveBoxKeys.chores);
-    final isPremium =
-        Hive.box(HiveBoxKeys.appState).get(HiveBoxKeys.hasPremium) == true;
+    final isPremium = ref.read(premiumProvider);
     final currentCount = choresBox.values.length;
 
     // Enforce free limit

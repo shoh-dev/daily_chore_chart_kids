@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import '../../core/models/sticker.dart';
+import '../../core/providers/premium_provider.dart';
 import '../../utils/hive_keys.dart';
 import '../premium/premium_dialog.dart';
 
-class StickerCollectionScreen extends StatelessWidget {
+class StickerCollectionScreen extends ConsumerWidget {
   const StickerCollectionScreen({super.key});
 
   static const int freeStickerLimit = 3;
@@ -28,10 +30,9 @@ class StickerCollectionScreen extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final box = Hive.box<Sticker>(HiveBoxKeys.stickers);
-    final isPremium =
-        Hive.box(HiveBoxKeys.appState).get(HiveBoxKeys.hasPremium) == true;
+    final isPremium = ref.watch(premiumProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text("My Stickers")),

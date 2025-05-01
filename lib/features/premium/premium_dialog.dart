@@ -1,12 +1,13 @@
 import 'package:daily_chore_chart_kids/core/services/iap_service.dart';
 import 'package:daily_chore_chart_kids/ui/widgets/math_lock_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PremiumDialog extends StatelessWidget {
+class PremiumDialog extends ConsumerWidget {
   const PremiumDialog({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: const Text(
@@ -51,6 +52,7 @@ class PremiumDialog extends StatelessWidget {
                   const SnackBar(content: Text("Purchase failed.")),
                 );
               },
+              ref: ref,
             );
           },
         ),
