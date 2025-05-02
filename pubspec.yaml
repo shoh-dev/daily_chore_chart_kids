@@ -3,7 +3,7 @@ description: "Daily Chore Chart Kids App"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 homepage: "www.shoh.dev"
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.7.2

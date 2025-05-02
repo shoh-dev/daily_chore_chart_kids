@@ -68,7 +68,7 @@ class NotificationService {
       "Open the app and mark your progress ✨",
       scheduledTime,
       notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }
